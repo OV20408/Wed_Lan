@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roger & Vanessa - Boda</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+ 
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <!-- Countdown -->
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">115</span>
+                    <span class="countdown-label">DÍAS</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">04</span>
+                    <span class="countdown-label">HORAS</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">01</span>
+                    <span class="countdown-label">MINUTOS</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">57</span>
+                    <span class="countdown-label">SEGUNDOS</span>
+                </div>
+            </div>
+
+            <!-- Main Invitation con layout en columnas -->
+            <div class="invitation-content">
+                    <!-- Lado izquierdo - Iniciales y decoración -->
+                    <div class="left-section">
+                        <div class="geometric-frame"></div>
+                        <div class="initials">R&V</div>
+                    </div>
+
+                    <!-- Lado derecho - Información -->
+                    <div class="right-section">
+                        <div class="save-date">
+                            SAVE <span class="script">the</span> DATE
+                        </div>
+                        <div class="couple-names">ROGER and VANESSA</div>
+                        <div class="date">10 DE DICIEMBRE 2025</div>
+                        <div class="event-details-mini">
+                            Acompáñanos en la ceremonia a las [HORA]<br>
+                            en [LUGAR DE LA CEREMONIA]
+                        </div>
+                        <a href="#" class="location-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                            Ver ubicación
+                        </a>
+                        
+                        <!-- CTA Button debajo de la ubicación -->
+                        <div class="cta-section-inline">
+                            <a href="formulario.html" class="cta-button">
+                                Confirma tu Asistencia
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    <!-- Event Information -->
+    <section class="event-info">
+        <div class="container">
+            <div class="info-content">
+                <h2>Celebremos Juntos</h2>
+                <p class="event-details">
+                    <i class="fas fa-map-marker-alt" style="color: var(--dorado); margin-right: 0.5rem;"></i>
+                    Acompáñanos en la ceremonia el 10 DE DICIEMBRE 2025 a las [HORA] en [LUGAR DE LA CEREMONIA], [DIRECCIÓN]
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Section 1 -->
+    <section class="photo-section" data-animate>
+        <div class="container">
+            <div class="photo-frame left">
+                <div class="floral-border"></div>
+                <div class="photo-placeholder">
+                    <span>Foto de los Novios</span>
+                </div>
+            </div>
+            <div class="photo-text">
+                <h3>Nuestra Historia</h3>
+                <p>Dos corazones que se encontraron para escribir juntos la más hermosa historia de amor.</p>
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- Photo Section 2 -->
+    <section class="photo-section reverse" data-animate>
+        <div class="container">
+            <div class="photo-text">
+                <h3>Un Nuevo Comienzo</h3>
+                <p>Después de tantos momentos compartidos, estamos listos para dar el siguiente paso juntos.</p>
+            </div>
+            <div class="photo-frame right">
+                <div class="floral-border"></div>
+                <div class="photo-placeholder">
+                    <span>Foto de Compromiso</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photo Section 3 -->
+    <section class="photo-section" data-animate>
+        <div class="container">
+            <div class="photo-frame left">
+                <div class="floral-border"></div>
+                <div class="photo-placeholder">
+                    <span>Foto Especial</span>
+                </div>
+            </div>
+            <div class="photo-text">
+                <h3>Para Siempre</h3>
+                <blockquote class="bible-verse">
+                    <p>"Y sobre todas estas cosas vestíos de amor, que es el vínculo perfecto"</p>
+                    <cite>Colosenses 3:14</cite>
+                </blockquote>
+                <p>Te esperamos para celebrar este momento único e irrepetible en nuestras vidas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA mejorado -->
+    <section class="final-cta">
+        <div class="decorative-elements"></div>
+        <div class="container">
+            <div class="final-cta-content">
+                <h2>¡Esperamos verte ahí!</h2>
+                <p class="final-cta-subtitle">Será un honor contar con tu presencia en este día tan especial</p>
+                <a href="formulario.html" class="cta-button">
+                    CONFIRMA TU ASISTENCIA
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>

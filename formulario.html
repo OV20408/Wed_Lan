@@ -1,0 +1,145 @@
+<!-- formulario.hmtl donde haran para concoer si van o no -->
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirmación de Asistencia - Roger & Vanessa</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="form-section">
+        <div class="container">
+            <div class="form-header">
+                <div class="initials small">R&V</div>
+                <h1>Confirmación de Asistencia</h1>
+                <p>Por favor completa el siguiente formulario</p>
+            </div>
+
+            <form class="confirmation-form" id="confirmationForm">
+                <!-- Attendance Question -->
+                <div class="form-group">
+                    <label class="form-label required">¿ASISTIRÁS?</label>
+                    <div class="radio-group">
+                        <label class="radio-option">
+                            <input type="radio" name="asistencia" value="si" required>
+                            <span class="radio-custom"></span>
+                            Sí, asistiré
+                        </label>
+                        <label class="radio-option">
+                            <input type="radio" name="asistencia" value="no" required>
+                            <span class="radio-custom"></span>
+                            No podré asistir
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label for="nombre" class="form-label required">Nombre Completo</label>
+                    <div class="input-wrapper">
+                        <input type="text" id="nombre" name="nombre" required>
+                        <div class="input-decoration"></div>
+                    </div>
+                </div>
+
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="telefono" class="form-label required">Número de Teléfono</label>
+                    <div class="input-wrapper">
+                        <input type="tel" id="telefono" name="telefono" required>
+                        <div class="input-decoration"></div>
+                    </div>
+                </div>
+
+                <!-- Number of Adults -->
+                <div class="form-group">
+                    <label for="adultos" class="form-label required">Número de Adultos</label>
+                    <div class="select-wrapper">
+                        <select id="adultos" name="adultos" required>
+                            <option value="">Selecciona</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="mas">MÁS</option>
+                        </select>
+                        <div class="select-decoration"></div>
+                    </div>
+                    <div class="input-wrapper hidden" id="adultosExtra">
+                        <input type="number" name="adultos_extra" placeholder="Especifica el número">
+                        <div class="input-decoration"></div>
+                    </div>
+                </div>
+
+                <!-- Number of Children -->
+                <div class="form-group">
+                    <label for="ninos" class="form-label">Número de Niños</label>
+                    <div class="select-wrapper">
+                        <select id="ninos" name="ninos">
+                            <option value="0">0</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="mas">MÁS</option>
+                        </select>
+                        <div class="select-decoration"></div>
+                    </div>
+                    <div class="input-wrapper hidden" id="ninosExtra">
+                        <input type="number" name="ninos_extra" placeholder="Especifica el número">
+                        <div class="input-decoration"></div>
+                    </div>
+                </div>
+
+                <!-- Message for Couple -->
+                <div class="form-group">
+                    <label for="mensaje" class="form-label required">Mensaje para los Novios</label>
+                    <div class="textarea-wrapper">
+                        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+                        <div class="textarea-decoration"></div>
+                    </div>
+                </div>
+
+                <!-- Additional Details -->
+                <div class="form-group">
+                    <label for="detalle" class="form-label">Detalle Adicional</label>
+                    <div class="textarea-wrapper">
+                        <textarea id="detalle" name="detalle" rows="3" placeholder="Alergias, necesidades especiales, etc."></textarea>
+                        <div class="textarea-decoration"></div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-submit">
+                    <button type="submit" class="submit-button">
+                        ENVIAR CONFIRMACIÓN
+                    </button>
+                </div>
+            </form>
+
+            <!-- Back to Main -->
+            <div class="back-link">
+                <a href="index.html">← Volver a la invitación</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
