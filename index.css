@@ -408,7 +408,7 @@ body {
     content: '';
     position: absolute;
     bottom: -12px;
-    left: -12px;
+    left: 15px;
     width: 245px;
     height: 245px;
     background-image:
@@ -449,7 +449,7 @@ body {
 .floral-border {
     position: absolute;
     top: -15px;
-    left: -15px;
+    left: -11px;
     right: -15px;
     bottom: -15px;
     border: 2px solid var(--durazno);
