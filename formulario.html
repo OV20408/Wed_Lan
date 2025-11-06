@@ -59,7 +59,7 @@
                     <label for="adultos" class="form-label required">Número de Adultos</label>
                     <div class="select-wrapper">
                         <select id="adultos" name="adultos" required>
-                            <option value="">Selecciona</option>
+                            <option value="0">0</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
@@ -78,6 +78,8 @@
                         <input type="number" name="adultos_extra" placeholder="Especifica el número">
                         <div class="input-decoration"></div>
                     </div>
+                    <!-- Container for adult names -->
+                    <div id="adultosNombres" class="nombres-container"></div>
                 </div>
 
                 <!-- Number of Children -->
@@ -104,6 +106,8 @@
                         <input type="number" name="ninos_extra" placeholder="Especifica el número">
                         <div class="input-decoration"></div>
                     </div>
+                    <!-- Container for children names -->
+                    <div id="ninosNombres" class="nombres-container"></div>
                 </div>
 
                 <!-- Message for Couple -->
@@ -111,15 +115,6 @@
                     <label for="mensaje" class="form-label required">Mensaje para los Novios</label>
                     <div class="textarea-wrapper">
                         <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
-                        <div class="textarea-decoration"></div>
-                    </div>
-                </div>
-
-                <!-- Additional Details -->
-                <div class="form-group">
-                    <label for="detalle" class="form-label">Detalle Adicional</label>
-                    <div class="textarea-wrapper">
-                        <textarea id="detalle" name="detalle" rows="3" placeholder="Alergias, necesidades especiales, etc."></textarea>
                         <div class="textarea-decoration"></div>
                     </div>
                 </div>
@@ -139,7 +134,7 @@
         </div>
     </section>
 
+    <script src="config.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
-
