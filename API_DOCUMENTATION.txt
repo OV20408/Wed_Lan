@@ -1,0 +1,432 @@
+================================================================================
+                    DOCUMENTACIÓN COMPLETA DE LA API
+                    INVITACIÓN A BODA - RSVP SYSTEM
+================================================================================
+
+DESCRIPCIÓN GENERAL
+===================
+Esta API permite gestionar las confirmaciones de asistencia (RSVP) para una boda.
+Los usuarios pueden confirmar su asistencia, especificar acompañantes (mayores y menores de edad),
+y enviar mensajes a los novios.
+
+BASE URL: http://localhost:3000
+PUERTO POR DEFECTO: 3000
+
+================================================================================
+                                ENDPOINTS
+================================================================================
+
+1. VERIFICACIÓN DE SALUD
+========================
+GET /
+
+Descripción: Verifica que la API esté funcionando correctamente.
+
+Respuesta Exitosa (200):
+{
+  "status": "ok",
+  "message": "API Invitación Boda"
+}
+
+Uso:
+curl http://localhost:3000/
+
+================================================================================
+
+2. CREAR CONFIRMACIÓN DE ASISTENCIA (RSVP)
+===========================================
+POST /api/rsvp
+
+Descripción: Crea una nueva confirmación de asistencia en la base de datos.
+
+Headers Requeridos:
+Content-Type: application/json
+
+Body (JSON):
+{
+  "nombre": "Juan Pérez",
+  "asiste": true,
+  "cantidad_personas": 3,
+  "nombres_acompanantes_mayor": ["Ana Pérez", "Luis Pérez"],
+  "nombres_acompanantes_menor": ["Carlos Pérez"],
+  "cantidad_ninos": 1,
+  "cantidad_adultos": 2,
+  "celular": "+52 555-123-4567",
+  "mensaje": "¡Felicidades! Nos vemos en la boda"
+}
+
+CAMPOS REQUERIDOS:
+- nombre: string (máximo 200 caracteres)
+- asiste: boolean (true/false)
+- celular: string (máximo 50 caracteres)
+
+CAMPOS OPCIONALES:
+- cantidad_personas: number (≥ 0) - puede ser null
+- nombres_acompanantes_mayor: array de strings - puede ser null
+- nombres_acompanantes_menor: array de strings - puede ser null
+- cantidad_ninos: number (≥ 0) - puede ser null
+- cantidad_adultos: number (≥ 0) - puede ser null
+- mensaje: string (máximo longitud ilimitada) - puede ser null
+
+VALIDACIONES:
+- Solo nombre, asiste y celular son obligatorios
+- Los campos opcionales pueden ser null o undefined
+- Si se proporcionan campos opcionales, deben tener el tipo correcto:
+  * cantidad_personas, cantidad_ninos, cantidad_adultos: números ≥ 0
+  * nombres_acompanantes_mayor, nombres_acompanantes_menor: arrays de strings
+  * mensaje: string
+
+Respuesta Exitosa (201):
+{
+  "id": 1
+}
+
+Respuesta de Error (400):
+{
+  "errors": [
+    "nombre es requerido",
+    "asiste debe ser boolean",
+    "cantidad_personas inválido"
+  ]
+}
+
+Respuesta de Error (500):
+{
+  "error": "Error al crear RSVP"
+}
+
+Ejemplos de Uso:
+
+# Con curl:
+curl -X POST http://localhost:3000/api/rsvp \
+  -H "Content-Type: application/json" \
+  -d '{
+    "nombre": "María García",
+    "asiste": true,
+    "cantidad_personas": 2,
+    "nombres_acompanantes_mayor": ["Roberto García"],
+    "nombres_acompanantes_menor": [],
+    "cantidad_ninos": 0,
+    "cantidad_adultos": 2,
+    "celular": "+52 555-987-6543",
+    "mensaje": "¡Estamos muy emocionados!"
+  }'
+
+# Con JavaScript/Fetch:
+fetch('http://localhost:3000/api/rsvp', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify({
+    nombre: "Carlos López",
+    asiste: false,
+    cantidad_personas: 0,
+    nombres_acompanantes_mayor: [],
+    nombres_acompanantes_menor: [],
+    cantidad_ninos: 0,
+    cantidad_adultos: 0,
+    celular: "+52 555-111-2222",
+    mensaje: "Lamentamos no poder asistir"
+  })
+})
+
+================================================================================
+
+3. LISTAR TODAS LAS CONFIRMACIONES
+==================================
+GET /api/rsvp
+
+Descripción: Obtiene una lista de todas las confirmaciones de asistencia.
+Limitado a 500 registros, ordenados por ID descendente (más recientes primero).
+
+Respuesta Exitosa (200):
+[
+  {
+    "id": 2,
+    "nombre": "María García",
+    "asiste": true,
+    "cantidad_personas": 2,
+    "nombres_acompanantes_mayor": ["Roberto García"],
+    "nombres_acompanantes_menor": [],
+    "cantidad_ninos": 0,
+    "cantidad_adultos": 2,
+    "celular": "+52 555-987-6543",
+    "mensaje": "¡Estamos muy emocionados!",
+    "fecha_creacion": "2025-08-21T15:30:45.123Z"
+  },
+  {
+    "id": 1,
+    "nombre": "Juan Pérez",
+    "asiste": true,
+    "cantidad_personas": 3,
+    "nombres_acompanantes_mayor": ["Ana Pérez", "Luis Pérez"],
+    "nombres_acompanantes_menor": ["Carlos Pérez"],
+    "cantidad_ninos": 1,
+    "cantidad_adultos": 2,
+    "celular": "+52 555-123-4567",
+    "mensaje": "¡Felicidades! Nos vemos en la boda",
+    "fecha_creacion": "2025-08-21T14:20:30.456Z"
+  }
+]
+
+Respuesta de Error (500):
+{
+  "error": "Error al listar RSVPs"
+}
+
+Ejemplos de Uso:
+
+# Con curl:
+curl http://localhost:3000/api/rsvp
+
+# Con JavaScript/Fetch:
+fetch('http://localhost:3000/api/rsvp')
+  .then(response => response.json())
+  .then(data => console.log(data))
+
+================================================================================
+
+4. OBTENER CONFIRMACIÓN POR ID
+===============================
+GET /api/rsvp/:id
+
+Descripción: Obtiene una confirmación específica por su ID.
+
+Parámetros de Ruta:
+- id: número entero (ID de la confirmación)
+
+Respuesta Exitosa (200):
+{
+  "id": 1,
+  "nombre": "Juan Pérez",
+  "asiste": true,
+  "cantidad_personas": 3,
+  "nombres_acompanantes_mayor": ["Ana Pérez", "Luis Pérez"],
+  "nombres_acompanantes_menor": ["Carlos Pérez"],
+  "cantidad_ninos": 1,
+  "cantidad_adultos": 2,
+  "celular": "+52 555-123-4567",
+  "mensaje": "¡Felicidades! Nos vemos en la boda",
+  "fecha_creacion": "2025-08-21T14:20:30.456Z"
+}
+
+Respuesta de Error (400):
+{
+  "error": "id inválido"
+}
+
+Respuesta de Error (404):
+{
+  "error": "No encontrado"
+}
+
+Respuesta de Error (500):
+{
+  "error": "Error al obtener RSVP"
+}
+
+Ejemplos de Uso:
+
+# Con curl:
+curl http://localhost:3000/api/rsvp/1
+
+# Con JavaScript/Fetch:
+fetch('http://localhost:3000/api/rsvp/1')
+  .then(response => response.json())
+  .then(data => console.log(data))
+
+================================================================================
+                                ESTRUCTURA DE DATOS
+================================================================================
+
+TABLA: dbo.RSVP
+
++---------------------------+------------------+------+-----+---------------------+
+| Campo                     | Tipo             | Null | Key | Default            |
++---------------------------+------------------+------+-----+---------------------+
+| id                        | INT              | NO   | PRI | IDENTITY(1,1)      |
+| nombre                    | NVARCHAR(200)    | NO   |     | NULL               |
+| asiste                    | BIT              | NO   |     | NULL               |
+| cantidad_personas         | INT              | YES  |     | NULL               |
+| nombres_acompanantes_mayor| NVARCHAR(MAX)    | YES  |     | NULL               |
+| nombres_acompanantes_menor| NVARCHAR(MAX)    | YES  |     | NULL               |
+| cantidad_ninos            | INT              | YES  |     | NULL               |
+| cantidad_adultos          | INT              | YES  |     | NULL               |
+| celular                   | NVARCHAR(50)     | NO   |     | NULL               |
+| mensaje                   | NVARCHAR(MAX)    | YES  |     | NULL               |
+| fecha_creacion            | DATETIME2        | YES  |     | NULL               |
++---------------------------+------------------+------+-----+---------------------+
+
+CONSTRAINTS:
+- Solo se aplican constraints si los campos numéricos están presentes:
+  * cantidad_personas >= 0 (si no es null)
+  * cantidad_ninos >= 0 (si no es null)
+  * cantidad_adultos >= 0 (si no es null)
+
+NOTAS:
+- Los campos de acompañantes se almacenan como JSON en la base de datos
+- La API los convierte automáticamente a arrays al enviar respuestas
+- Si el campo es NULL en la base de datos, se devuelve null en la respuesta
+- Si hay error en el parsing, se devuelve null
+- Solo nombre, asiste y celular son obligatorios; todos los demás pueden ser null
+
+================================================================================
+                                CÓDIGOS DE ESTADO HTTP
+================================================================================
+
+200 - OK: Solicitud exitosa
+201 - Created: Recurso creado exitosamente
+400 - Bad Request: Datos de entrada inválidos
+404 - Not Found: Recurso no encontrado
+500 - Internal Server Error: Error interno del servidor
+
+================================================================================
+                                MANEJO DE ERRORES
+================================================================================
+
+La API devuelve errores en formato JSON con la siguiente estructura:
+
+{
+  "error": "Descripción del error"
+}
+
+Para errores de validación (400):
+{
+  "errors": [
+    "Campo 1 es requerido",
+    "Campo 2 debe ser número"
+  ]
+}
+
+================================================================================
+                                CONFIGURACIÓN
+================================================================================
+
+VARIABLES DE ENTORNO (.env):
+PORT=3000
+DB_SERVER=localhost
+DB_PORT=1433
+DB_USER=sa
+DB_PASSWORD=YourStrong!Passw0rd
+DB_NAME=boda_db
+
+CONFIGURACIÓN DE BASE DE DATOS:
+- SQL Server
+- Puerto por defecto: 1433
+- Encriptación habilitada
+- Pool de conexiones: máximo 10, mínimo 0
+- Timeout de conexión inactiva: 30 segundos
+
+================================================================================
+                                EJEMPLOS COMPLETOS
+================================================================================
+
+EJEMPLO 1: Confirmación con familia completa
+--------------------------------------------
+POST /api/rsvp
+{
+  "nombre": "Familia Rodríguez",
+  "asiste": true,
+  "cantidad_personas": 4,
+  "nombres_acompanantes_mayor": ["María Rodríguez", "Carlos Rodríguez"],
+  "nombres_acompanantes_menor": ["Ana Rodríguez"],
+  "cantidad_ninos": 1,
+  "cantidad_adultos": 3,
+  "celular": "+52 555-444-3333",
+  "mensaje": "¡No podemos esperar para celebrar con ustedes!"
+}
+
+EJEMPLO 2: Confirmación individual
+----------------------------------
+POST /api/rsvp
+{
+  "nombre": "Sofía Martínez",
+  "asiste": true,
+  "cantidad_personas": 1,
+  "nombres_acompanantes_mayor": [],
+  "nombres_acompanantes_menor": [],
+  "cantidad_ninos": 0,
+  "cantidad_adultos": 1,
+  "celular": "+52 555-777-8888",
+  "mensaje": "¡Será un día especial!"
+}
+
+EJEMPLO 3: No puede asistir
+----------------------------
+POST /api/rsvp
+{
+  "nombre": "Roberto Silva",
+  "asiste": false,
+  "cantidad_personas": 0,
+  "nombres_acompanantes_mayor": [],
+  "nombres_acompanantes_menor": [],
+  "cantidad_ninos": 0,
+  "cantidad_adultos": 0,
+  "celular": "+52 555-999-0000",
+  "mensaje": "Lamentamos no poder estar presentes"
+}
+
+EJEMPLO 4: Confirmación mínima (solo campos obligatorios)
+---------------------------------------------------------
+POST /api/rsvp
+{
+  "nombre": "Ana López",
+  "asiste": true,
+  "celular": "+52 555-111-2222"
+}
+
+================================================================================
+                                NOTAS IMPORTANTES
+================================================================================
+
+1. VALIDACIÓN DE DATOS:
+   - La API valida todos los campos antes de insertar en la base de datos
+   - Los arrays de acompañantes deben ser arrays válidos, no null
+   - Los campos numéricos deben ser números válidos ≥ 0
+
+2. MANEJO DE JSON:
+   - Los campos de acompañantes se almacenan como JSON en la base de datos
+   - La API maneja automáticamente la conversión JSON ↔ Array
+   - Si hay error en el parsing, se devuelve un array vacío
+
+3. SEGURIDAD:
+   - CORS habilitado para desarrollo
+   - Validación de entrada para prevenir inyección SQL
+   - Parámetros preparados para todas las consultas
+
+4. RENDIMIENTO:
+   - Pool de conexiones para manejar múltiples solicitudes
+   - Límite de 500 registros en la lista para evitar sobrecarga
+   - Ordenamiento por ID descendente para mostrar los más recientes
+
+================================================================================
+                                COMANDOS ÚTILES
+================================================================================
+
+INICIAR SERVIDOR:
+npm run dev          # Modo desarrollo con nodemon
+npm start           # Modo producción
+
+VERIFICAR SALUD:
+curl http://localhost:3000/
+
+CREAR RSVP (mínimo):
+curl -X POST http://localhost:3000/api/rsvp -H "Content-Type: application/json" -d '{"nombre":"Test","asiste":true,"celular":"+52 555-000-0000"}'
+
+CREAR RSVP (completo):
+curl -X POST http://localhost:3000/api/rsvp -H "Content-Type: application/json" -d '{"nombre":"Test","asiste":true,"cantidad_personas":1,"nombres_acompanantes_mayor":[],"nombres_acompanantes_menor":[],"cantidad_ninos":0,"cantidad_adultos":1,"celular":"+52 555-000-0000"}'
+
+LISTAR RSVPs:
+curl http://localhost:3000/api/rsvp
+
+OBTENER POR ID:
+curl http://localhost:3000/api/rsvp/1
+
+================================================================================
+                                VERSIÓN
+================================================================================
+
+Versión: 1.0.0
+Última actualización: Agosto 2025
+Desarrollado para: Sistema de Invitaciones de Boda
